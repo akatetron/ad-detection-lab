@@ -1,0 +1,4 @@
+index=wineventlog source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=10 TargetImage="*\\lsass.exe"
+GrantedAccess IN ("0x1010","0x1410","0x1438","0x143a","0x1fffff")
+NOT SourceImage IN ("*\\MsMpEng.exe","*\\MpDefenderCoreService.exe","*\\wininit.exe","*\\csrss.exe","*\\svchost.exe")
+| table _time host SourceImage TargetImage GrantedAccess

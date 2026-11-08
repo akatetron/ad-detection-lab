@@ -1,0 +1,38 @@
+title: Suspicious Process Access to LSASS
+id: 6f1c2a4e-3b7d-4c51-9a0e-1d2f3a4b5c01
+status: experimental
+description: Detects a process opening lsass.exe with access rights typical of credential dumping (Mimikatz, procdump, comsvcs MiniDump).
+author: Chayan Panchal
+date: 2026/11/08
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+tags:
+  - attack.credential-access
+  - attack.t1003.001
+logsource:
+  product: windows
+  category: process_access
+detection:
+  selection:
+    TargetImage|endswith: '\lsass.exe'
+    GrantedAccess:
+      - '0x1010'
+      - '0x1410'
+      - '0x1438'
+      - '0x143a'
+      - '0x1fffff'
+  filter_av:
+    SourceImage|endswith:
+      - '\MsMpEng.exe'
+      - '\MpDefenderCoreService.exe'
+  filter_system:
+    SourceImage|endswith:
+      - '\wininit.exe'
+      - '\csrss.exe'
+      - '\svchost.exe'
+  condition: selection and not 1 of filter_*
+falsepositives:
+  - Antivirus / EDR agents not covered by the filters
+  - Legitimate admin troubleshooting with procdump
+level: high
+x_tuning: 'Excluded Defender, wininit, csrss and svchost source images'

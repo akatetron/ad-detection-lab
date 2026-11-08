@@ -1,0 +1,3 @@
+index=wineventlog source="XmlWinEventLog:Security" EventCode=4769 TicketEncryptionType="0x17" Status="0x0"
+NOT ServiceName="*$" NOT ServiceName="krbtgt" NOT TargetUserName="*$@LAB.LOCAL"
+| stats count values(ServiceName) as services by TargetUserName IpAddress

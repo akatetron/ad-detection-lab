@@ -1,0 +1,3 @@
+index=wineventlog source="XmlWinEventLog:System" EventCode=7045
+(ServiceName="*PSEXESVC*" OR ImagePath="*\\ADMIN$\\*" OR ImagePath="*%COMSPEC%*" OR ImagePath="*cmd.exe /Q /c*")
+| table _time host ServiceName ImagePath

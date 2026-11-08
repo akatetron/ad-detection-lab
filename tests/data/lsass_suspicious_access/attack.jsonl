@@ -1,0 +1,3 @@
+{"_source": "synthetic-seed", "EventID": 10, "SourceImage": "C:\\Users\\jdoe\\Downloads\\mimikatz.exe", "TargetImage": "C:\\Windows\\system32\\lsass.exe", "GrantedAccess": "0x1010"}
+{"_source": "synthetic-seed", "EventID": 10, "SourceImage": "C:\\Tools\\procdump64.exe", "TargetImage": "C:\\Windows\\system32\\lsass.exe", "GrantedAccess": "0x1fffff"}
+{"_source": "synthetic-seed", "EventID": 10, "SourceImage": "C:\\Windows\\System32\\rundll32.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1410"}

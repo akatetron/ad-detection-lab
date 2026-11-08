@@ -1,0 +1,2 @@
+{"_source": "synthetic-seed", "EventID": 4769, "TargetUserName": "jdoe@LAB.LOCAL", "ServiceName": "svc_sql", "TicketEncryptionType": "0x17", "Status": "0x0", "IpAddress": "::ffff:10.0.0.21"}
+{"_source": "synthetic-seed", "EventID": 4769, "TargetUserName": "jdoe@LAB.LOCAL", "ServiceName": "svc_web", "TicketEncryptionType": "0x17", "Status": "0x0", "IpAddress": "::ffff:10.0.0.21"}

@@ -1,0 +1,30 @@
+title: Kerberoasting - RC4 Service Ticket Request
+id: 6f1c2a4e-3b7d-4c51-9a0e-1d2f3a4b5c02
+status: experimental
+description: Detects TGS requests using RC4 (0x17) for user-backed service accounts, typical of Rubeus or Impacket GetUserSPNs.
+author: Chayan Panchal
+date: 2026/11/08
+references:
+  - https://attack.mitre.org/techniques/T1558/003/
+tags:
+  - attack.credential-access
+  - attack.t1558.003
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4769
+    TicketEncryptionType: '0x17'
+    Status: '0x0'
+  filter_machine:
+    ServiceName|endswith: '$'
+  filter_krbtgt:
+    ServiceName: 'krbtgt'
+  filter_machine_requester:
+    TargetUserName|endswith: '$@LAB.LOCAL'
+  condition: selection and not 1 of filter_*
+falsepositives:
+  - Legacy applications that still require RC4
+level: medium
+x_tuning: 'Excluded machine-account services, krbtgt and machine requesters'

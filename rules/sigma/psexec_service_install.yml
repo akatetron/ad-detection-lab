@@ -1,0 +1,32 @@
+title: PsExec-Style Remote Service Installation
+id: 6f1c2a4e-3b7d-4c51-9a0e-1d2f3a4b5c04
+status: experimental
+description: Detects service installs created by PsExec, Impacket psexec or smbexec for remote execution.
+author: Chayan Panchal
+date: 2026/11/08
+references:
+  - https://attack.mitre.org/techniques/T1569/002/
+  - https://attack.mitre.org/techniques/T1021/002/
+tags:
+  - attack.execution
+  - attack.lateral-movement
+  - attack.t1569.002
+  - attack.t1021.002
+logsource:
+  product: windows
+  service: system
+detection:
+  selection_id:
+    EventID: 7045
+  selection_name:
+    ServiceName|contains: 'PSEXESVC'
+  selection_path:
+    ImagePath|contains:
+      - '\ADMIN$\'
+      - '%COMSPEC%'
+      - 'cmd.exe /Q /c'
+  condition: selection_id and (selection_name or selection_path)
+falsepositives:
+  - Sysadmins using Sysinternals PsExec
+level: high
+x_tuning: 'No change needed'

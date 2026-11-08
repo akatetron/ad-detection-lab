@@ -1,0 +1,3 @@
+index=wineventlog source="XmlWinEventLog:Security" EventCode=4624 LogonType=9 LogonProcessName="seclogo" AuthenticationPackageName="Negotiate"
+NOT SubjectUserName IN ("helpdesk.admin")
+| table _time host SubjectUserName TargetUserName IpAddress

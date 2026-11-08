@@ -1,0 +1,7 @@
+// T1569.002 / T1021.002 - PsExec-style service install (System log 7045)
+Event
+| where EventLog == "System" and EventID == 7045
+| extend ServiceName = extract(@"Name=""ServiceName"">([^<]+)<", 1, EventData),
+         ImagePath = extract(@"Name=""ImagePath"">([^<]+)<", 1, EventData)
+| where ServiceName contains "PSEXESVC" or ImagePath has_any (@"\ADMIN$\", "%COMSPEC%", "cmd.exe /Q /c")
+| project TimeGenerated, Computer, ServiceName, ImagePath

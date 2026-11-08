@@ -1,0 +1,3 @@
+{"_source": "synthetic-seed", "EventID": 7045, "ServiceName": "PSEXESVC", "ImagePath": "%SystemRoot%\\PSEXESVC.exe"}
+{"_source": "synthetic-seed", "EventID": 7045, "ServiceName": "BTOBTO", "ImagePath": "%COMSPEC% /Q /c echo cd ^> \\\\127.0.0.1\\C$\\__output 2^>^&1 > %TEMP%\\execute.bat"}
+{"_source": "synthetic-seed", "EventID": 7045, "ServiceName": "xYzAbCd", "ImagePath": "\\\\10.0.0.30\\ADMIN$\\xYzAbCd.exe"}

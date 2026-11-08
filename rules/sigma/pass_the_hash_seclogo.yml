@@ -1,0 +1,29 @@
+title: Pass-the-Hash - NewCredentials Logon via seclogo
+id: 6f1c2a4e-3b7d-4c51-9a0e-1d2f3a4b5c03
+status: experimental
+description: Detects logon type 9 with the seclogo process, produced by Mimikatz sekurlsa::pth and similar tools.
+author: Chayan Panchal
+date: 2026/11/08
+references:
+  - https://attack.mitre.org/techniques/T1550/002/
+tags:
+  - attack.lateral-movement
+  - attack.defense-evasion
+  - attack.t1550.002
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4624
+    LogonType: 9
+    LogonProcessName: 'seclogo'
+    AuthenticationPackageName: 'Negotiate'
+  filter_runas_admins:
+    SubjectUserName:
+      - 'helpdesk.admin'
+  condition: selection and not 1 of filter_*
+falsepositives:
+  - runas /netonly used by administrators (tune with an allowlist)
+level: high
+x_tuning: 'Allowlisted helpdesk.admin, who uses runas /netonly'

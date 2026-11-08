@@ -1,0 +1,1 @@
+{"_source": "synthetic-seed", "EventID": 4624, "LogonType": 9, "LogonProcessName": "seclogo", "AuthenticationPackageName": "Negotiate", "SubjectUserName": "jdoe", "TargetUserName": "jdoe"}

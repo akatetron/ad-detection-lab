@@ -1,0 +1,8 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+lab/raw-exports/
+*.evtx
+media/*.mp4
+!media/README.md

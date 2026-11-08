@@ -1,0 +1,10 @@
+// T1047 - Shell spawned by WmiPrvSE (Sysmon EID 1)
+Event
+| where Source == "Microsoft-Windows-Sysmon" and EventID == 1
+| extend Image = extract(@"Name=""Image"">([^<]+)<", 1, EventData),
+         ParentImage = extract(@"Name=""ParentImage"">([^<]+)<", 1, EventData),
+         CommandLine = extract(@"Name=""CommandLine"">([^<]+)<", 1, EventData)
+| where ParentImage endswith @"\WmiPrvSE.exe"
+| where Image endswith @"\cmd.exe" or Image endswith @"\powershell.exe" or Image endswith @"\pwsh.exe"
+| where CommandLine !contains @"\CCM\"
+| project TimeGenerated, Computer, ParentImage, Image, CommandLine

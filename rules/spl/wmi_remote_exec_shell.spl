@@ -1,0 +1,3 @@
+index=wineventlog source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=1 ParentImage="*\\WmiPrvSE.exe"
+(Image="*\\cmd.exe" OR Image="*\\powershell.exe" OR Image="*\\pwsh.exe") NOT CommandLine="*\\CCM\\*"
+| table _time host ParentImage Image CommandLine

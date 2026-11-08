@@ -1,0 +1,10 @@
+// T1003.001 - Suspicious process access to LSASS (Sysmon EID 10, collected into the Event table)
+Event
+| where Source == "Microsoft-Windows-Sysmon" and EventID == 10
+| extend TargetImage = extract(@"Name=""TargetImage"">([^<]+)<", 1, EventData),
+         SourceImage = extract(@"Name=""SourceImage"">([^<]+)<", 1, EventData),
+         GrantedAccess = extract(@"Name=""GrantedAccess"">([^<]+)<", 1, EventData)
+| where TargetImage endswith @"\lsass.exe"
+| where GrantedAccess in~ ("0x1010","0x1410","0x1438","0x143a","0x1fffff")
+| where not(SourceImage has_any (@"\MsMpEng.exe", @"\MpDefenderCoreService.exe", @"\wininit.exe", @"\csrss.exe", @"\svchost.exe"))
+| project TimeGenerated, Computer, SourceImage, TargetImage, GrantedAccess

@@ -1,0 +1,10 @@
+// T1558.003 - Kerberoasting: RC4 TGS requests for user service accounts
+SecurityEvent
+| where EventID == 4769
+| extend ServiceName = extract(@"Name=""ServiceName"">([^<]+)<", 1, EventData),
+         TicketEncryptionType = extract(@"Name=""TicketEncryptionType"">([^<]+)<", 1, EventData),
+         Status = extract(@"Name=""Status"">([^<]+)<", 1, EventData)
+| where TicketEncryptionType == "0x17" and Status == "0x0"
+| where not(ServiceName endswith "$") and ServiceName != "krbtgt"
+| where not(TargetUserName endswith "$@LAB.LOCAL")
+| summarize Requests = count(), Services = make_set(ServiceName) by TargetUserName, IpAddress, bin(TimeGenerated, 10m)

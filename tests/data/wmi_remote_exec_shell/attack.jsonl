@@ -1,0 +1,2 @@
+{"_source": "synthetic-seed", "EventID": 1, "ParentImage": "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe", "Image": "C:\\Windows\\System32\\cmd.exe", "CommandLine": "cmd.exe /Q /c whoami 1> \\\\127.0.0.1\\ADMIN$\\__1699 2>&1"}
+{"_source": "synthetic-seed", "EventID": 1, "ParentImage": "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe", "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell -nop -w hidden -enc SQBFAFgA"}

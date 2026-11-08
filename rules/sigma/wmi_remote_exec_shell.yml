@@ -1,0 +1,28 @@
+title: Shell Spawned by WMI Provider Host
+id: 6f1c2a4e-3b7d-4c51-9a0e-1d2f3a4b5c05
+status: experimental
+description: Detects cmd or PowerShell launched by WmiPrvSE.exe, typical of wmiexec or Invoke-WmiMethod lateral movement.
+author: Chayan Panchal
+date: 2026/11/08
+references:
+  - https://attack.mitre.org/techniques/T1047/
+tags:
+  - attack.execution
+  - attack.t1047
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\WmiPrvSE.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\pwsh.exe'
+  filter_sccm:
+    CommandLine|contains: '\CCM\'
+  condition: selection and not 1 of filter_*
+falsepositives:
+  - Software deployment or inventory tools that use WMI
+level: high
+x_tuning: 'Excluded SCCM client scripts (\CCM\ path)'

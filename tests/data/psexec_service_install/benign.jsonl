@@ -1,0 +1,2 @@
+{"_source": "synthetic-seed", "EventID": 7045, "ServiceName": "Google Update Service", "ImagePath": "\"C:\\Program Files (x86)\\Google\\Update\\GoogleUpdate.exe\" /svc"}
+{"_source": "synthetic-seed", "EventID": 7045, "ServiceName": "Sysmon64", "ImagePath": "C:\\Windows\\Sysmon64.exe"}

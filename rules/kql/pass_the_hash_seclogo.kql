@@ -1,0 +1,6 @@
+// T1550.002 - Pass-the-Hash (LogonType 9 / seclogo)
+SecurityEvent
+| where EventID == 4624 and LogonType == 9
+| where LogonProcessName =~ "seclogo" and AuthenticationPackageName =~ "Negotiate"
+| where SubjectUserName !in~ ("helpdesk.admin")
+| project TimeGenerated, Computer, SubjectUserName, TargetUserName, IpAddress, LogonProcessName

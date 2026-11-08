@@ -1,0 +1,3 @@
+{"_source": "synthetic-seed", "EventID": 4624, "LogonType": 9, "LogonProcessName": "seclogo", "AuthenticationPackageName": "Negotiate", "SubjectUserName": "helpdesk.admin", "TargetUserName": "helpdesk.admin"}
+{"_source": "synthetic-seed", "EventID": 4624, "LogonType": 3, "LogonProcessName": "NtLmSsp", "AuthenticationPackageName": "NTLM", "SubjectUserName": "-", "TargetUserName": "asmith"}
+{"_source": "synthetic-seed", "EventID": 4624, "LogonType": 2, "LogonProcessName": "User32", "AuthenticationPackageName": "Negotiate", "SubjectUserName": "WS01$", "TargetUserName": "asmith"}

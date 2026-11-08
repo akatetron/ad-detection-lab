@@ -1,0 +1,17 @@
+name: detection-tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Validate Sigma syntax
+        run: sigma check rules/sigma
+      - name: Rule regression tests
+        run: pytest -v tests
+      - name: Results table
+        run: python scripts/run_results.py

@@ -1,0 +1,4 @@
+{"_source": "synthetic-seed", "EventID": 10, "SourceImage": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18\\MsMpEng.exe", "TargetImage": "C:\\Windows\\system32\\lsass.exe", "GrantedAccess": "0x1410"}
+{"_source": "synthetic-seed", "EventID": 10, "SourceImage": "C:\\Windows\\system32\\wininit.exe", "TargetImage": "C:\\Windows\\system32\\lsass.exe", "GrantedAccess": "0x1fffff"}
+{"_source": "synthetic-seed", "EventID": 10, "SourceImage": "C:\\Windows\\system32\\svchost.exe", "TargetImage": "C:\\Windows\\system32\\lsass.exe", "GrantedAccess": "0x1410"}
+{"_source": "synthetic-seed", "EventID": 10, "SourceImage": "C:\\Windows\\system32\\taskmgr.exe", "TargetImage": "C:\\Windows\\system32\\lsass.exe", "GrantedAccess": "0x1000"}
