@@ -2,7 +2,7 @@
 
 > **What this is:** a lab-based detection-engineering framework for one Active Directory attack chain — credential theft to lateral movement. Six detections written in Sigma, with KQL (Microsoft Sentinel) and SPL (Splunk) conversions, each mapped to MITRE ATT&CK, with an offline test harness and CI.
 >
-> **Validation status.** Five of the six rules are validated against **real** captured attack telemetry (public OTRF Security-Datasets) — see the table just below and [`docs/validation.md`](docs/validation.md). The separate TP/FP results table further down, and the fixtures in `tests/data/`, are **synthetic** events used by the CI unit tests. First-party results from your own lab and the demo video are the remaining step — see [`STATUS.md`](STATUS.md) and the build guide (`AD-Detection-Lab-Guide.pdf`).
+> **Validation status.** Five of the six rules are validated against **real** captured attack telemetry (public OTRF Security-Datasets) — see the table below and [`docs/validation.md`](docs/validation.md). The fixtures in `tests/data/` are **synthetic** events used by the CI unit tests. First-party results from your own lab and the demo video are the remaining step — see [`STATUS.md`](STATUS.md).
 
 ![tests](https://github.com/akatetron/ad-detection-lab/actions/workflows/tests.yml/badge.svg)
 
@@ -38,23 +38,6 @@ flowchart LR
     F -. detected by .-> R5([wmi_remote_exec_shell])
     G -. detected by .-> R6([dcsync_replication])
 ```
-
-## Results
-
-<!-- RESULTS:START -->
-> ⚠️ **Current numbers come from synthetic seed events** written to exercise each rule's logic. Replace `tests/data/*` with exports from your lab runs (`scripts/export_lab_logs.ps1`), then re-run `python scripts/run_results.py` and paste the new table here before publishing.
-
-| Rule | ATT&CK | TP | FN | FP before tuning | FP after tuning | What changed |
-|---|---|---|---|---|---|---|
-| DCSync - Directory Replication by Non-DC Account | T1003.006 | 2/2 | 0 | 2/3 | 0/3 | Excluded DC machine accounts and the Azure AD Connect (MSOL_) account |
-| Kerberoasting - RC4 Service Ticket Request | T1558.003 | 2/2 | 0 | 3/4 | 0/4 | Excluded machine-account services, krbtgt and machine requesters |
-| Suspicious Process Access to LSASS | T1003.001 | 3/3 | 0 | 3/4 | 0/4 | Excluded Defender, wininit, csrss and svchost source images |
-| Pass-the-Hash - NewCredentials Logon via seclogo | T1550.002 | 1/1 | 0 | 1/3 | 0/3 | Allowlisted helpdesk.admin, who uses runas /netonly |
-| PsExec-Style Remote Service Installation | T1569.002, T1021.002 | 3/3 | 0 | 0/2 | 0/2 | No change needed |
-| Shell Spawned by WMI Provider Host | T1047 | 2/2 | 0 | 1/2 | 0/2 | Excluded SCCM client scripts (\CCM\ path) |
-<!-- RESULTS:END -->
-
-"FP before tuning" = the rule with every `filter_*` block switched off. Tuning details: [docs/tuning-log.md](docs/tuning-log.md).
 
 ## Demo (2 min)
 
