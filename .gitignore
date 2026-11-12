@@ -4,5 +4,10 @@ __pycache__/
 .venv/
 lab/raw-exports/
 *.evtx
+
+# Keep binaries and local artifacts out of the repo
+*.pdf
+.datasets/
+
 media/*.mp4
 !media/README.md

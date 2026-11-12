@@ -1,9 +1,23 @@
 # AD Credential Theft → Lateral Movement: Detection Engineering Lab
 
-> **What this is:** lab-based detection engineering. I ran one Active Directory attack chain in a home lab I control, wrote Sigma detections with KQL (Microsoft Sentinel) and SPL (Splunk) versions, measured true and false positives, and tuned the noisy rules.
-> **Tested / not tested:** tested against my own 2-host lab (1 DC, 1 Windows 10 workstation) with Atomic Red Team and manual tooling; **not** tested in production, at enterprise scale, or against EDR-evasive variants.
+> **What this is:** a lab-based detection-engineering framework for one Active Directory attack chain — credential theft to lateral movement. Six detections written in Sigma, with KQL (Microsoft Sentinel) and SPL (Splunk) conversions, each mapped to MITRE ATT&CK, with an offline test harness and CI.
+>
+> **Validation status.** Five of the six rules are validated against **real** captured attack telemetry (public OTRF Security-Datasets) — see the table just below and [`docs/validation.md`](docs/validation.md). The separate TP/FP results table further down, and the fixtures in `tests/data/`, are **synthetic** events used by the CI unit tests. First-party results from your own lab and the demo video are the remaining step — see [`STATUS.md`](STATUS.md) and the build guide (`AD-Detection-Lab-Guide.pdf`).
 
 ![tests](https://github.com/akatetron/ad-detection-lab/actions/workflows/tests.yml/badge.svg)
+
+## Validation against real attack telemetry
+
+Beyond the synthetic unit-test fixtures, **five of the six rules are validated against real Windows event logs** captured while the techniques were actually executed (the public [OTRF Security-Datasets](https://github.com/OTRF/Security-Datasets)). Reproduce it with `python scripts/validate_public_datasets.py`. Full results and scope: [`docs/validation.md`](docs/validation.md).
+
+| Rule | ATT&CK | Real-telemetry result |
+|---|---|---|
+| Suspicious Process Access to LSASS | T1003.001 | Fired on the Mimikatz access; stayed quiet on 271 other LSASS opens in the same capture |
+| DCSync | T1003.006 | Fired on all 3 real replication events |
+| Pass-the-Hash | T1550.002 | Fired on the overpass-the-hash logon |
+| PsExec service install | T1569.002 / T1021.002 | Fired on the real service install |
+| WMI remote exec | T1047 | Fired on the WmiPrvSE-spawned shell |
+| Kerberoasting | T1558.003 | No public RC4-TGS dataset; synthetic fixtures only |
 
 ## Attack chain and which rule catches each step
 
