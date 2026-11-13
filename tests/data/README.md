@@ -10,7 +10,7 @@ They let the rules and the test harness be developed and verified offline,
 and they show the shape of each log source the rule expects. **They are not
 captured from a live environment and are not measured results.**
 
-## Replacing them with real lab data
+## Replacing them with your  lab data
 
 1. Build and run the lab (see `AD-Detection-Lab-Guide.pdf` and
    `docs/attack-runbook.md`).
